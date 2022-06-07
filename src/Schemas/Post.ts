@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-
-let Post;
+import IPost from "../interfaces/Post";
 
 const postsSchema = new mongoose.Schema({
   author: String,
@@ -8,10 +7,7 @@ const postsSchema = new mongoose.Schema({
   likes: [],
 });
 
-export function PostsSchema() {
-  Post = mongoose.model("User", postsSchema);
-  return Post;
-}
+const Post = mongoose.model<IPost>("User", postsSchema);
 
 export function CreatePost(author: string, content: string, likes = []) {
   const post = new Post({

@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-
-let Message;
+import IMessage from "../interfaces/Message";
 
 const messagesSchema = new mongoose.Schema({
   from: String,
@@ -10,10 +9,7 @@ const messagesSchema = new mongoose.Schema({
   viewed: Boolean,
 });
 
-export function MessagesSchema() {
-  Message = mongoose.model("User", messagesSchema);
-  return Message;
-}
+const Message = mongoose.model<IMessage>("User", messagesSchema);
 
 export function CreateMessage(
   from: string,

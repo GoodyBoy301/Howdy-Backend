@@ -16,8 +16,7 @@ mongoose.connect(
 import { _Response } from "./types/express";
 
 /*===== Import schemas =====*/
-import { UsersSchema, CreateUser } from "./Schemas/User";
-const User = UsersSchema();
+import { CreateUser } from "./Schemas/User";
 CreateUser("goodyboy301", "goodyboy301@gmail.com", "99993333");
 
 app.get("/", (req: {}, res: _Response) => {

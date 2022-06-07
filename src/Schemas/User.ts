@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-
-let User;
+import IUser from "../interfaces/User";
 
 const usersSchema = new mongoose.Schema({
   username: String,
@@ -12,10 +11,7 @@ const usersSchema = new mongoose.Schema({
   lastSeen: Date,
 });
 
-export function UsersSchema() {
-  User = mongoose.model("User", usersSchema);
-  return User;
-}
+const User = mongoose.model<IUser>("User", usersSchema);
 
 export function CreateUser(
   username: string,
