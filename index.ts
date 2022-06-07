@@ -15,6 +15,11 @@ mongoose.connect(
 /*===== Import custom types and interfaces  =====*/
 import { _Response } from "./types/express";
 
+/*===== Import schemas =====*/
+import { UsersSchema, CreateUser } from "./Schemas/User";
+const User = UsersSchema();
+CreateUser("goodyboy301", "goodyboy301@gmail.com", "99993333");
+
 app.get("/", (req: {}, res: _Response) => {
   res.json({ name: "jh shij ygjjjjju i", date: "ijndihih" });
 });
