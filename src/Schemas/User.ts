@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import IUser from "../interfaces/User";
+import { _Request, _Response } from "../types/express";
 
 const usersSchema = new mongoose.Schema({
   username: String,
@@ -14,7 +15,9 @@ const usersSchema = new mongoose.Schema({
 
 const User = mongoose.model<IUser>("User", usersSchema);
 
-export function CreateUser(
+export const CreateUser = (
+  req: _Request,
+  res: _Response,
   username: string,
   email: string,
   phone: number,
@@ -23,7 +26,7 @@ export function CreateUser(
   posts = [],
   contacts = [],
   lastSeen = Date.now()
-) {
+) => {
   const user = new User({
     username,
     email,
@@ -34,5 +37,13 @@ export function CreateUser(
     contacts,
     lastSeen,
   });
-  user.save();
-}
+
+  User.findOne({ username }, (err: {}, found: {}) => {
+    if (found === null) {
+      user.save();
+      res.json(user);
+    } else {
+      res.status(404).send("Error. Big Fool");
+    }
+  });
+};

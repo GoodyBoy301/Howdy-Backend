@@ -10,16 +10,14 @@ app.listen("3000");
 mongoose.connect("mongodb://localhost/howdy");
 
 /*===== Imports  =====*/
-import { _Response } from "./types/express";
+import { _Request, _Response } from "./types/express";
 import { CreateUser } from "./Schemas/User";
-import { addListener } from "process";
-
-// CreateUser("goodyboy301", "goodyboy301@gmail.com", "99993333");
 
 app
   .get("/", (req: {}, res: _Response) => {
     res.json({ name: "jh shij ygjjjjju i", date: "ijndihih" });
   })
-  .post("/", (req: { body: {} }, res: _Response) => {
-    res.json(req.body);
+  .post("/", (req: _Request, res: _Response) => {
+    const { username, email, phone, password } = req.body;
+    CreateUser(req, res, username, email, phone, password);
   });

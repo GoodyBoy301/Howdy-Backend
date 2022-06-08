@@ -16,7 +16,7 @@ const usersSchema = new mongoose_1.default.Schema({
     lastSeen: Date,
 });
 const User = mongoose_1.default.model("User", usersSchema);
-function CreateUser(username, email, phone, password, dp = {}, posts = [], contacts = [], lastSeen = Date.now()) {
+const CreateUser = (req, res, username, email, phone, password, dp = {}, posts = [], contacts = [], lastSeen = Date.now()) => {
     const user = new User({
         username,
         email,
@@ -27,6 +27,14 @@ function CreateUser(username, email, phone, password, dp = {}, posts = [], conta
         contacts,
         lastSeen,
     });
-    user.save();
-}
+    User.findOne({ username }, (err, found) => {
+        if (found === null) {
+            user.save();
+            res.json(user);
+        }
+        else {
+            res.status(404).send("Error. Big Fool");
+        }
+    });
+};
 exports.CreateUser = CreateUser;

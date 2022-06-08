@@ -8,11 +8,12 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.listen("3000");
 mongoose.connect("mongodb://localhost/howdy");
-// CreateUser("goodyboy301", "goodyboy301@gmail.com", "99993333");
+const User_1 = require("./Schemas/User");
 app
     .get("/", (req, res) => {
     res.json({ name: "jh shij ygjjjjju i", date: "ijndihih" });
 })
     .post("/", (req, res) => {
-    res.json(req.body);
+    const { username, email, phone, password } = req.body;
+    (0, User_1.CreateUser)(req, res, username, email, phone, password);
 });
