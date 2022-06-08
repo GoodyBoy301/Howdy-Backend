@@ -11,11 +11,13 @@ mongoose.connect("mongodb://localhost/howdy");
 
 /*===== Imports  =====*/
 import { _Request, _Response } from "./types/express";
-import { CreateUser, AuthenticateUser } from "./Schemas/User";
+import { CreateUser, AuthenticateUser, FindUser } from "./Schemas/User";
 
+//user
 app
   .get("/", (req: _Request, res: _Response) => {
-    res.json({ name: "jh shij ygjjjjju i", date: "ijndihih" });
+    const { username } = req.body;
+    FindUser(res, username);
   })
   .post("/", (req: _Request, res: _Response) => {
     const { username, email, phone, password } = req.body;

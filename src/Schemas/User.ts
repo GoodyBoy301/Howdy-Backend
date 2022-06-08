@@ -15,6 +15,17 @@ const usersSchema = new mongoose.Schema({
 
 const User = mongoose.model<IUser>("User", usersSchema);
 
+export const FindUser = (res: _Response, username: string) => {
+  User.findOne({ username }, (err: {}, found: {}) => {
+    if (found === null) {
+      res.status(404).send("Error. User doesn't exist");
+    } else if (found) {
+      res.json(found);
+    } else {
+      res.status(500).send("Error. Something went wrong");
+    }
+  });
+};
 export const CreateUser = (
   res: _Response,
   username: string,
