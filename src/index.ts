@@ -5,19 +5,23 @@ const mongoose = require("mongoose");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
-app.listen("3000");
+app.listen(process.env.PORT || "3000");
 
 mongoose.connect("mongodb://localhost/howdy");
 
 /*===== Imports  =====*/
 import { _Request, _Response } from "./types/express";
-import { CreateUser } from "./Schemas/User";
+import { CreateUser, AuthenticateUser } from "./Schemas/User";
 
 app
-  .get("/", (req: {}, res: _Response) => {
+  .get("/", (req: _Request, res: _Response) => {
     res.json({ name: "jh shij ygjjjjju i", date: "ijndihih" });
   })
   .post("/", (req: _Request, res: _Response) => {
     const { username, email, phone, password } = req.body;
-    CreateUser(req, res, username, email, phone, password);
+    CreateUser(res, username, email, phone, password);
+  })
+  .post("/auth", (req: _Request, res: _Response) => {
+    const { username, password } = req.body;
+    AuthenticateUser(res, username, password);
   });

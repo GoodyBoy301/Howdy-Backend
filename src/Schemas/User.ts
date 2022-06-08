@@ -16,7 +16,6 @@ const usersSchema = new mongoose.Schema({
 const User = mongoose.model<IUser>("User", usersSchema);
 
 export const CreateUser = (
-  req: _Request,
   res: _Response,
   username: string,
   email: string,
@@ -27,23 +26,38 @@ export const CreateUser = (
   contacts = [],
   lastSeen = Date.now()
 ) => {
-  const user = new User({
-    username,
-    email,
-    phone,
-    password,
-    dp,
-    posts,
-    contacts,
-    lastSeen,
-  });
-
   User.findOne({ username }, (err: {}, found: {}) => {
     if (found === null) {
+      const user = new User({
+        username,
+        email,
+        phone,
+        password,
+        dp,
+        posts,
+        contacts,
+        lastSeen,
+      });
       user.save();
       res.json(user);
     } else {
-      res.status(404).send("Error. Big Fool");
+      res.status(406).send("Error. Username already taken");
+    }
+  });
+};
+
+export const AuthenticateUser = (
+  res: _Response,
+  username: string,
+  password: string
+) => {
+  User.findOne({ username }, (err: {}, found: { password: string }) => {
+    if (found === null) {
+      res.status(404).send("Error. User doesn't exist");
+    } else if (found.password === password) {
+      res.json(found);
+    } else {
+      res.status(401).send("Error. Invalid password");
     }
   });
 };
