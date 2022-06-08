@@ -8,6 +8,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const usersSchema = new mongoose_1.default.Schema({
     username: String,
     email: String,
+    phone: Number,
     password: String,
     dp: Object,
     posts: [],
@@ -15,10 +16,11 @@ const usersSchema = new mongoose_1.default.Schema({
     lastSeen: Date,
 });
 const User = mongoose_1.default.model("User", usersSchema);
-function CreateUser(username, email, password, dp = {}, posts = [], contacts = [], lastSeen = Date.now()) {
+function CreateUser(username, email, phone, password, dp = {}, posts = [], contacts = [], lastSeen = Date.now()) {
     const user = new User({
         username,
         email,
+        phone,
         password,
         dp,
         posts,

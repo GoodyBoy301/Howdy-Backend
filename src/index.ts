@@ -1,24 +1,25 @@
 /*===== Import required modules  =====*/
-// Express
 const express = require("express");
-const app = express();
-app.listen("3000", () => {
-  console.log("app listening...");
-});
-// Mongoose
+const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-mongoose.connect(
-  "mongodb://localhost:27017/howdy",
-  console.log("Connected to mongodb server -howdy")
-);
 
-/*===== Import custom types and interfaces  =====*/
+const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.listen("3000");
+
+mongoose.connect("mongodb://localhost/howdy");
+
+/*===== Imports  =====*/
 import { _Response } from "./types/express";
-
-/*===== Import schemas =====*/
 import { CreateUser } from "./Schemas/User";
-CreateUser("goodyboy301", "goodyboy301@gmail.com", "99993333");
+import { addListener } from "process";
 
-app.get("/", (req: {}, res: _Response) => {
-  res.json({ name: "jh shij ygjjjjju i", date: "ijndihih" });
-});
+// CreateUser("goodyboy301", "goodyboy301@gmail.com", "99993333");
+
+app
+  .get("/", (req: {}, res: _Response) => {
+    res.json({ name: "jh shij ygjjjjju i", date: "ijndihih" });
+  })
+  .post("/", (req: { body: {} }, res: _Response) => {
+    res.json(req.body);
+  });
