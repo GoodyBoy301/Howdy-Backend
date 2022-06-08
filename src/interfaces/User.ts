@@ -6,4 +6,5 @@ export default interface User {
   dp: object;
   contacts: object[];
   lastSeen: Date;
+  save: () => {};
 }

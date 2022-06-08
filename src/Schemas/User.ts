@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import IUser from "../interfaces/User";
-import { _Request, _Response } from "../types/express";
+import { _Request, _Response } from "../interfaces/Express";
 
 const usersSchema = new mongoose.Schema({
   username: String,
@@ -15,7 +15,7 @@ const usersSchema = new mongoose.Schema({
 const User = mongoose.model<IUser>("User", usersSchema);
 
 export const FindUser = (res: _Response, username: string) => {
-  User.findOne({ username }, (err: {}, found: {}) => {
+  User.findOne({ username }, (err: {}, found: IUser) => {
     if (found === null) {
       res.status(404).send("Error. User doesn't exist");
     } else if (found) {
@@ -35,7 +35,7 @@ export const CreateUser = (
   contacts = [],
   lastSeen = Date.now()
 ) => {
-  User.findOne({ username }, (err: {}, found: {}) => {
+  User.findOne({ username }, (err: {}, found: IUser) => {
     if (found === null) {
       const user = new User({
         username,
@@ -59,13 +59,36 @@ export const AuthenticateUser = (
   username: string,
   password: string
 ) => {
-  User.findOne({ username }, (err: {}, found: { password: string }) => {
+  User.findOne({ username }, (err: {}, found: IUser) => {
     if (found === null) {
       res.status(404).send("Error. User doesn't exist");
     } else if (found.password === password) {
       res.json(found);
     } else {
       res.status(401).send("Error. Invalid password");
+    }
+  });
+};
+
+export const PutContact = (
+  res: _Response,
+  username: string,
+  contactname: string,
+  contactid: string
+) => {
+  User.findOne({ username }, (err: {}, found: IUser) => {
+    if (found === null) {
+      res.status(404).send("Error. User doesn't exist");
+    } else if (found) {
+      const contact = {
+        name: contactname,
+        username: contactid,
+      };
+      found.contacts.unshift(contact);
+      found.save();
+      res.json(found);
+    } else {
+      res.status(500).send("Error. Something went wrong");
     }
   });
 };

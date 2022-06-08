@@ -10,8 +10,13 @@ app.listen(process.env.PORT || "3000");
 mongoose.connect("mongodb://localhost/howdy");
 
 /*===== Imports  =====*/
-import { _Request, _Response } from "./types/express";
-import { CreateUser, AuthenticateUser, FindUser } from "./Schemas/User";
+import { _Request, _Response } from "./interfaces/Express";
+import {
+  CreateUser,
+  AuthenticateUser,
+  FindUser,
+  PutContact,
+} from "./Schemas/User";
 
 //user
 app
@@ -27,3 +32,10 @@ app
     const { username, password } = req.body;
     AuthenticateUser(res, username, password);
   });
+
+//contact
+app.put("/:username", (req: _Request, res: _Response) => {
+  const { contactname, contactid } = req.body;
+  const { username } = req.params;
+  PutContact(res, username, contactname, contactid);
+});
