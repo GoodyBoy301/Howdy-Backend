@@ -8,7 +8,6 @@ const usersSchema = new mongoose.Schema({
   phone: Number,
   password: String,
   dp: Object,
-  posts: [],
   contacts: [],
   lastSeen: Date,
 });
@@ -33,7 +32,6 @@ export const CreateUser = (
   phone: number,
   password: string,
   dp = {},
-  posts = [],
   contacts = [],
   lastSeen = Date.now()
 ) => {
@@ -45,7 +43,6 @@ export const CreateUser = (
         phone,
         password,
         dp,
-        posts,
         contacts,
         lastSeen,
       });

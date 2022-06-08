@@ -4,7 +4,6 @@ export default interface User {
   phone: number;
   password: string;
   dp: object;
-  posts: object[];
   contacts: object[];
   lastSeen: Date;
 }
