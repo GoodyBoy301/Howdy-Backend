@@ -16,6 +16,7 @@ import {
   AuthenticateUser,
   FindUser,
   PutContact,
+  UpdateLastPing,
 } from "./Schemas/User";
 
 //user
@@ -34,8 +35,14 @@ app
   });
 
 //contact
-app.put("/:username", (req: _Request, res: _Response) => {
-  const { contactname, contactid } = req.body;
-  const { username } = req.params;
-  PutContact(res, username, contactname, contactid);
-});
+app
+  .put("/:username", (req: _Request, res: _Response) => {
+    const { contactname, contactid } = req.body;
+    const { username } = req.params;
+    PutContact(res, username, contactname, contactid);
+  })
+  .post("/:username", (req: _Request, res: _Response) => {
+    const { contactid } = req.body;
+    const { username } = req.params;
+    UpdateLastPing(res, username, contactid);
+  });

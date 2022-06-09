@@ -4,7 +4,11 @@ export default interface User {
   phone: number;
   password: string;
   dp: object;
-  contacts: object[];
-  lastSeen: Date;
+  contacts: {
+    name: string;
+    username: string;
+    lastPing: number;
+  }[];
+  lastSeen: number;
   save: () => {};
 }
