@@ -11,13 +11,7 @@ mongoose.connect("mongodb://localhost/howdy");
 
 /*===== Imports  =====*/
 import { _Request, _Response } from "./interfaces/Express";
-import {
-  GetAllUsers,
-  CreateUser,
-  AuthenticateUser,
-  FindUser,
-  AddContact,
-} from "./Schemas/User";
+import { GetAllUsers, CreateUser, FindUser, AddContact } from "./Schemas/User";
 
 app
   .get("/", (req: _Request, res: _Response) => {
@@ -35,8 +29,4 @@ app
     const { contactname, contactid } = req.body;
     const { username } = req.params;
     AddContact(res, username, contactname, contactid);
-  })
-  .post("/auth", (req: _Request, res: _Response) => {
-    const { username, password } = req.body;
-    AuthenticateUser(res, username, password);
   });

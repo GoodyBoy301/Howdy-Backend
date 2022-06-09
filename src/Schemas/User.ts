@@ -61,22 +61,6 @@ export const CreateUser = (
   });
 };
 
-export const AuthenticateUser = (
-  res: _Response,
-  username: string,
-  password: string
-) => {
-  User.findOne({ username }, (err: {}, found: IUser) => {
-    if (found === null) {
-      res.status(404).send("Error. User doesn't exist");
-    } else if (found.password === password) {
-      res.json(found);
-    } else {
-      res.status(401).send("Error. Invalid password");
-    }
-  });
-};
-
 export const AddContact = (
   res: _Response,
   username: string,
