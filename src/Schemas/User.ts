@@ -81,12 +81,19 @@ export const PutContact = (
     if (found === null) {
       res.status(404).send("Error. User doesn't exist");
     } else if (found) {
-      const contact = {
+      let contact = {
         name: contactname,
         username: contactid,
         lastPing,
       };
-      found.contacts.unshift(contact);
+      found.contacts.forEach((item) => {
+        if (item.username === contactid) {
+          contact.username = "";
+        }
+      });
+      if (contact.username) {
+        found.contacts.unshift(contact);
+      }
       found.save();
       res.json(found);
     } else {

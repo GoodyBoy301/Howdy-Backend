@@ -21,8 +21,8 @@ import {
 
 //user
 app
-  .get("/", (req: _Request, res: _Response) => {
-    const { username } = req.body;
+  .get("/:username", (req: _Request, res: _Response) => {
+    const { username } = req.params;
     FindUser(res, username);
   })
   .post("/", (req: _Request, res: _Response) => {
