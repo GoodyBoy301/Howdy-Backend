@@ -9,7 +9,7 @@ const usersSchema = new mongoose.Schema({
   password: String,
   dp: Object,
   contacts: [],
-  lastSeen: Date,
+  lastSeen: Number,
 });
 
 const User = mongoose.model<IUser>("User", usersSchema);
