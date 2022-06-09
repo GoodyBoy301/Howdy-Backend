@@ -9,7 +9,6 @@ const usersSchema = new mongoose.Schema({
   password: String,
   dp: Object,
   contacts: [],
-  lastSeen: Number,
 });
 
 const User = mongoose.model<IUser>("User", usersSchema);
@@ -42,8 +41,7 @@ export const CreateUser = (
   phone: number,
   password: string,
   dp = {},
-  contacts = [],
-  lastSeen = Date.now()
+  contacts = []
 ) => {
   User.findOne({ username }, (err: {}, found: IUser) => {
     if (found === null) {
@@ -54,7 +52,6 @@ export const CreateUser = (
         password,
         dp,
         contacts,
-        lastSeen,
       });
       user.save();
       res.json(user);

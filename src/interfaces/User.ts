@@ -7,8 +7,6 @@ export default interface User {
   contacts: {
     name: string;
     username: string;
-    lastPing: number;
   }[];
-  lastSeen: number;
   save: () => {};
 }
