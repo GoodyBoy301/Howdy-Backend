@@ -12,30 +12,31 @@ mongoose.connect("mongodb://localhost/howdy");
 /*===== Imports  =====*/
 import { _Request, _Response } from "./interfaces/Express";
 import {
+  GetAllUsers,
   CreateUser,
   AuthenticateUser,
   FindUser,
-  PutContact,
+  AddContact,
 } from "./Schemas/User";
 
-//user
 app
-  .get("/:username", (req: _Request, res: _Response) => {
-    const { username } = req.params;
-    FindUser(res, username);
+  .get("/", (req: _Request, res: _Response) => {
+    GetAllUsers(res);
   })
   .post("/", (req: _Request, res: _Response) => {
     const { username, email, phone, password } = req.body;
     CreateUser(res, username, email, phone, password);
   })
+  .get("/:username", (req: _Request, res: _Response) => {
+    const { username } = req.params;
+    FindUser(res, username);
+  })
+  .post("/:username", (req: _Request, res: _Response) => {
+    const { contactname, contactid } = req.body;
+    const { username } = req.params;
+    AddContact(res, username, contactname, contactid);
+  })
   .post("/auth", (req: _Request, res: _Response) => {
     const { username, password } = req.body;
     AuthenticateUser(res, username, password);
   });
-
-//contact
-app.post("/:username", (req: _Request, res: _Response) => {
-  const { contactname, contactid } = req.body;
-  const { username } = req.params;
-  PutContact(res, username, contactname, contactid);
-});

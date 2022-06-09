@@ -14,6 +14,16 @@ const usersSchema = new mongoose.Schema({
 
 const User = mongoose.model<IUser>("User", usersSchema);
 
+export const GetAllUsers = (res: _Response) => {
+  User.find({}, (err: {}, found: IUser) => {
+    if (err) {
+      res.status(500).send("Error. Something went wrong");
+    } else {
+      res.json(found);
+    }
+  });
+};
+
 export const FindUser = (res: _Response, username: string) => {
   User.findOne({ username }, (err: {}, found: IUser) => {
     if (found === null) {
@@ -70,7 +80,7 @@ export const AuthenticateUser = (
   });
 };
 
-export const PutContact = (
+export const AddContact = (
   res: _Response,
   username: string,
   contactname: string,
