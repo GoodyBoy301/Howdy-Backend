@@ -101,25 +101,3 @@ export const PutContact = (
     }
   });
 };
-
-export const UpdateLastPing = (
-  res: _Response,
-  username: string,
-  contactid: string
-) => {
-  User.findOne({ username }, (err: {}, found: IUser) => {
-    if (found === null) {
-      res.status(404).send("Error. User doesn't exist");
-    } else if (found) {
-      found.contacts.forEach((contact) => {
-        if (contact.username === contactid) {
-          contact.lastPing = Date.now();
-        }
-      });
-      found.save();
-      res.json(found);
-    } else {
-      res.status(500).send("Error. Something went wrong");
-    }
-  });
-};
