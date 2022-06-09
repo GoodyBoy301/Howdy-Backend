@@ -84,8 +84,7 @@ export const AddContact = (
   res: _Response,
   username: string,
   contactname: string,
-  contactid: string,
-  lastPing = Date.now()
+  contactid: string
 ) => {
   User.findOne({ username }, (err: {}, found: IUser) => {
     if (found === null) {
@@ -94,7 +93,6 @@ export const AddContact = (
       let contact = {
         name: contactname,
         username: contactid,
-        lastPing,
       };
       found.contacts.forEach((item) => {
         if (item.username === contactid) {
