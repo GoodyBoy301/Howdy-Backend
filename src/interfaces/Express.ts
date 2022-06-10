@@ -12,6 +12,9 @@ export interface _Request {
     password: string;
     contactname: string;
     contactid: string;
+    from: string;
+    to: string;
+    content: string;
   };
   params: {
     username: string;

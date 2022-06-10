@@ -3,5 +3,5 @@ export default interface Message {
   to: string;
   content: string;
   time: Date;
-  viewed: boolean;
+  save: () => {};
 }

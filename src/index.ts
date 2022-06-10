@@ -5,13 +5,15 @@ const mongoose = require("mongoose");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
-app.listen(process.env.PORT || "3000");
+app.listen(process.env.PORT || "3000", console.log("listening..."));
 
-mongoose.connect("mongodb://localhost/howdy");
+mongoose.connect("mongodb://localhost/howdy", console.log("connected"));
 
 /*===== Imports  =====*/
 import { _Request, _Response } from "./interfaces/Express";
 import { GetAllUsers, CreateUser, FindUser, AddContact } from "./Schemas/User";
+import { GetAllMessages, CreateNewMessage } from "./Schemas/Message";
+import { connected } from "process";
 
 app
   .get("/", (req: _Request, res: _Response) => {
@@ -29,4 +31,13 @@ app
     const { contactname, contactid } = req.body;
     const { username } = req.params;
     AddContact(res, username, contactname, contactid);
+  });
+
+app
+  .get("/message", (req: _Request, res: _Response) => {
+    GetAllMessages(res);
+  })
+  .post("/message", (req: _Request, res: _Response) => {
+    const { from, to, content } = req.body;
+    CreateNewMessage(res, from, to, content);
   });
