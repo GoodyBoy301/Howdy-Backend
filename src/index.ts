@@ -23,11 +23,11 @@ app
     const { username, email, phone, password } = req.body;
     CreateUser(res, username, email, phone, password);
   })
-  .get("/:username", (req: _Request, res: _Response) => {
+  .get("/user/:username", (req: _Request, res: _Response) => {
     const { username } = req.params;
     FindUser(res, username);
   })
-  .post("/:username", (req: _Request, res: _Response) => {
+  .post("/user/:username", (req: _Request, res: _Response) => {
     const { contactname, contactid } = req.body;
     const { username } = req.params;
     AddContact(res, username, contactname, contactid);
