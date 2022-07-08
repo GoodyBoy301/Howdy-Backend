@@ -3,12 +3,14 @@ import IUser from "../interfaces/User";
 import { _Request, _Response } from "../interfaces/Express";
 
 const usersSchema = new mongoose.Schema({
-  username: String,
   email: String,
   phone: Number,
+  username: String,
   password: String,
-  dp: Object,
-  contacts: [],
+  name: String,
+  bio: String,
+  color: String,
+  pic: String,
 });
 
 const User = mongoose.model<IUser>("User", usersSchema);
@@ -40,8 +42,10 @@ export const CreateUser = (
   email: string,
   phone: number,
   password: string,
-  dp = {},
-  contacts = []
+  name: string,
+  bio: string,
+  color: string,
+  pic: string
 ) => {
   User.findOne({ username }, (err: {}, found: IUser) => {
     if (found === null) {
@@ -50,8 +54,10 @@ export const CreateUser = (
         email,
         phone,
         password,
-        dp,
-        contacts,
+        name,
+        bio,
+        color,
+        pic,
       });
       user.save();
       res.json(user);
