@@ -26,13 +26,13 @@ export const CreateNewMessage = (
   from: string,
   to: string,
   content: string,
-  time = Date.now()
+  date: string
 ) => {
   const message = new Message({
     from,
     to,
     content,
-    time,
+    date,
   });
   message.save();
   res.json(message);
