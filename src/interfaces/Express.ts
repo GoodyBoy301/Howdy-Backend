@@ -10,6 +10,10 @@ export interface _Request {
     email: string;
     phone: number;
     password: string;
+    name: string;
+    bio: string;
+    color: string;
+    pic: string;
     contactname: string;
     contactid: string;
     from: string;
