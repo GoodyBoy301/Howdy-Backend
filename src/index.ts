@@ -13,7 +13,7 @@ mongoose.connect("mongodb://localhost/howdy", console.log("connected"));
 
 /*===== Imports  =====*/
 import { _Request, _Response } from "./interfaces/Express";
-import { GetAllUsers, CreateUser, FindUser, AddContact } from "./Schemas/User";
+import { GetAllUsers, CreateUser, FindUser } from "./Schemas/User";
 import { GetAllMessages, CreateNewMessage } from "./Schemas/Message";
 import { connected } from "process";
 
@@ -24,15 +24,6 @@ app
   .post("/", (req: _Request, res: _Response) => {
     const { username, email, phone, password } = req.body;
     CreateUser(res, username, email, phone, password);
-  })
-  .get("/user/:username", (req: _Request, res: _Response) => {
-    const { username } = req.params;
-    FindUser(res, username);
-  })
-  .post("/user/:username", (req: _Request, res: _Response) => {
-    const { contactname, contactid } = req.body;
-    const { username } = req.params;
-    AddContact(res, username, contactname, contactid);
   });
 
 app
