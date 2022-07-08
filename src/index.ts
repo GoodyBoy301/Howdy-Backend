@@ -22,8 +22,9 @@ app
     GetAllUsers(res);
   })
   .post("/", (req: _Request, res: _Response) => {
-    const { username, email, phone, password } = req.body;
-    CreateUser(res, username, email, phone, password);
+    const { username, email, phone, password, name, bio, color, pic } =
+      req.body;
+    CreateUser(res, username, email, phone, password, name, bio, color, pic);
   });
 
 app
