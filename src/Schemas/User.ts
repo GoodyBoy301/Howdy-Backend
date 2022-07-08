@@ -66,33 +66,3 @@ export const CreateUser = (
     }
   });
 };
-
-export const AddContact = (
-  res: _Response,
-  username: string,
-  contactname: string,
-  contactid: string
-) => {
-  User.findOne({ username }, (err: {}, found: IUser) => {
-    if (found === null) {
-      res.status(404).send("Error. User doesn't exist");
-    } else if (found) {
-      let contact = {
-        name: contactname,
-        username: contactid,
-      };
-      found.contacts.forEach((item) => {
-        if (item.username === contactid) {
-          contact.username = "";
-        }
-      });
-      if (contact.username) {
-        found.contacts.unshift(contact);
-      }
-      found.save();
-      res.json(found);
-    } else {
-      res.status(500).send("Error. Something went wrong");
-    }
-  });
-};
