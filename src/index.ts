@@ -32,6 +32,6 @@ app
     GetAllMessages(res);
   })
   .post("/message", (req: _Request, res: _Response) => {
-    const { from, to, content } = req.body;
-    CreateNewMessage(res, from, to, content);
+    const { from, to, content, date } = req.body;
+    CreateNewMessage(res, from, to, content, date);
   });

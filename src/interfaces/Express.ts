@@ -19,6 +19,7 @@ export interface _Request {
     from: string;
     to: string;
     content: string;
+    date: string;
   };
   params: {
     username: string;
