@@ -28,12 +28,12 @@ app
 
 app
   .get("/messages", (req: _Request, res: _Response) => {
-    const { username } = req.params;
-    GetMessages(res, username);
+    const { username, contact } = req.params;
+    GetMessages(res, username, contact);
   })
   .get("/contacts", (req: _Request, res: _Response) => {
     const { username } = req.params;
-    GetMessages(res, username);
+    // GetMessages(res, username);
   })
   .post("/messages", (req: _Request, res: _Response) => {
     const { from, to, content, date } = req.body;

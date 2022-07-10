@@ -11,14 +11,19 @@ const messagesSchema = new mongoose.Schema({
 
 const Message = mongoose.model<IMessage>("Message", messagesSchema);
 
-export const GetMessages = (res: _Response, username: string) => {
+export const GetMessages = (
+  res: _Response,
+  username: string,
+  contact: string
+) => {
   Message.find({}, (err: {}, found: IMessage) => {
     if (err) {
       res.status(500).send("Error. Something went wrong");
     } else {
       found.filter(
         (message: { from: string; to: string }) =>
-          message.from === username || message.to === username
+          (message.from === username && message.to === contact) ||
+          (message.to === username && message.from === contact)
       );
       res.json(found);
     }

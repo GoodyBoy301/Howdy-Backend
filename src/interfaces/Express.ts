@@ -23,5 +23,6 @@ export interface _Request {
   };
   params: {
     username: string;
+    contact: string;
   };
 }
