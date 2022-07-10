@@ -17,10 +17,10 @@ import { GetAllUsers, CreateUser, FindUser } from "./Schemas/User";
 import { GetMessages, CreateNewMessage } from "./Schemas/Message";
 
 app
-  .get("/", (req: _Request, res: _Response) => {
+  .get("/users", (req: _Request, res: _Response) => {
     GetAllUsers(res);
   })
-  .post("/", (req: _Request, res: _Response) => {
+  .post("/users", (req: _Request, res: _Response) => {
     const { username, email, phone, password, name, bio, color, pic } =
       req.body;
     CreateUser(res, username, email, phone, password, name, bio, color, pic);
