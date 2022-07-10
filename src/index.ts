@@ -28,11 +28,11 @@ app
 
 app
   .get("/messages", (req: _Request, res: _Response) => {
-    const { username, contact } = req.params;
+    const { username, contact } = req.query;
     GetMessages(res, username, contact);
   })
   .get("/contacts", (req: _Request, res: _Response) => {
-    const { username } = req.params;
+    const { username } = req.query;
     GetContacts(res, username);
   })
   .post("/messages", (req: _Request, res: _Response) => {

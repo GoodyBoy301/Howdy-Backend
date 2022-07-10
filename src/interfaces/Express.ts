@@ -21,7 +21,7 @@ export interface _Request {
     content: string;
     date: string;
   };
-  params: {
+  query: {
     username: string;
     contact: string;
   };
