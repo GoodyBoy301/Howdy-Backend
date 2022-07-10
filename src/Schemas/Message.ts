@@ -11,6 +11,33 @@ const messagesSchema = new mongoose.Schema({
 
 const Message = mongoose.model<IMessage>("Message", messagesSchema);
 
+export const GetContacts = (res: _Response, username: string) => {
+  Message.find({}, (err: {}, found: IMessage) => {
+    if (err) {
+      res.status(500).send("Error. Something went wrong");
+    } else {
+      let contacts: string[];
+      const filteredFound = found.filter(
+        (message: { from: string; to: string }) => {
+          if (message.from === username && !contacts.includes(message.to)) {
+            contacts.push(message.to);
+            return true;
+          } else if (
+            message.to === username &&
+            !contacts.includes(message.from)
+          ) {
+            contacts.push(message.from);
+            return true;
+          } else {
+            return false;
+          }
+        }
+      );
+      res.json(filteredFound);
+    }
+  });
+};
+
 export const GetMessages = (
   res: _Response,
   username: string,
