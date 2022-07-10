@@ -2,6 +2,7 @@ export default interface Message {
   from: string;
   to: string;
   content: string;
-  time: Date;
+  date: string;
   save: () => {};
+  filter: (algorithm: Function) => {};
 }

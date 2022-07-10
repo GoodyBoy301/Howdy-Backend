@@ -6,16 +6,20 @@ const messagesSchema = new mongoose.Schema({
   from: String,
   to: String,
   content: String,
-  time: Date,
+  date: String,
 });
 
 const Message = mongoose.model<IMessage>("Message", messagesSchema);
 
-export const GetAllMessages = (res: _Response) => {
+export const GetMessages = (res: _Response, username: string) => {
   Message.find({}, (err: {}, found: IMessage) => {
     if (err) {
       res.status(500).send("Error. Something went wrong");
     } else {
+      found.filter(
+        (message: { from: string; to: string }) =>
+          message.from === username || message.to === username
+      );
       res.json(found);
     }
   });
