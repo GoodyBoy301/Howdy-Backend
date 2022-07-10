@@ -47,12 +47,12 @@ export const GetMessages = (
     if (err) {
       res.status(500).send("Error. Something went wrong");
     } else {
-      found.filter(
+      const filteredFound = found.filter(
         (message: { from: string; to: string }) =>
           (message.from === username && message.to === contact) ||
           (message.to === username && message.from === contact)
       );
-      res.json(found);
+      res.json(filteredFound);
     }
   });
 };
