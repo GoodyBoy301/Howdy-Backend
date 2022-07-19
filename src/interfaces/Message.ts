@@ -5,4 +5,5 @@ export default interface Message {
   date: string;
   save: () => {};
   filter: (algorithm: Function) => {};
+  reverse: () => [];
 }
