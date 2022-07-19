@@ -45,7 +45,7 @@ export const CreateUser = (
   name: string,
   bio: string,
   color: string,
-  pic: string
+  pic: string = "male04"
 ) => {
   User.findOne({ username }, (err: {}, found: IUser) => {
     if (found === null) {
