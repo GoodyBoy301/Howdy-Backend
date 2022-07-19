@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.listen(process.env.PORT || "3000", console.log("listening..."));
 
-// mongoose.connect(process.env.DB, console.log("connected"));
+mongoose.connect(process.env.DB, console.log("connected"));
 
 /*===== Imports  =====*/
 import { _Request, _Response } from "./interfaces/Express";
@@ -19,9 +19,7 @@ import { GetAllUsers, CreateUser } from "./Schemas/User";
 import { GetMessages, CreateNewMessage, GetContacts } from "./Schemas/Message";
 
 app
-  .get("/", (req: _Request, res: _Response) =>
-    res.send(process.env.DB, "started")
-  )
+  .get("/", (req: _Request, res: _Response) => res.send("started"))
   .get("/users", (req: _Request, res: _Response) => {
     GetAllUsers(res);
   })
