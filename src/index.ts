@@ -7,6 +7,7 @@ const cors = require("cors");
 const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.listen(process.env.PORT || "3000", console.log("listening..."));
 
 mongoose.connect("mongodb://localhost/howdy", console.log("connected"));
