@@ -11,10 +11,10 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.listen(process.env.PORT || "3000", console.log("listening..."));
-mongoose.connect(process.env.DB, console.log("connected"));
 const User_1 = require("./Schemas/User");
 const Message_1 = require("./Schemas/Message");
 app
+    .get("/", (req, res) => res.send(process.env.DB, "started"))
     .get("/users", (req, res) => {
     (0, User_1.GetAllUsers)(res);
 })
