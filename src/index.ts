@@ -1,4 +1,5 @@
 /*===== Import required modules  =====*/
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -10,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.listen(process.env.PORT || "3000", console.log("listening..."));
 
-mongoose.connect("mongodb://localhost/howdy", console.log("connected"));
+mongoose.connect(process.env.DB, console.log("connected"));
 
 /*===== Imports  =====*/
 import { _Request, _Response } from "./interfaces/Express";
