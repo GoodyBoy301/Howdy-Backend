@@ -17,8 +17,9 @@ export const GetContacts = (res: _Response, username: string) => {
       res.status(500).send("Error. Something went wrong");
     } else {
       let contacts: string[] = [];
-      const filteredFound = found.filter(
-        (message: { from: string; to: string }) => {
+      const filteredFound = found
+        .reverse()
+        .filter((message: { from: string; to: string }) => {
           if (message.from === username && !contacts?.includes(message.to)) {
             contacts.push(message.to);
             return true;
@@ -31,8 +32,7 @@ export const GetContacts = (res: _Response, username: string) => {
           } else {
             return false;
           }
-        }
-      );
+        });
       res.json(filteredFound);
     }
   });
